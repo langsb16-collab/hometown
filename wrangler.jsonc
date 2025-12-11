@@ -6,14 +6,12 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "webapp-production",
+      "database_id": "placeholder-id"
+    }
   ]
-  // D1 Database for production (local dev uses --local flag)
-  // Uncomment after creating production database:
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "webapp-production",
-  //     "database_id": "your-database-id-here"
-  //   }
-  // ]
 }
