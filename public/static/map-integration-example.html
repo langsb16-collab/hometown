@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지도 API 통합 예시 - RuralBase</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #16a34a; }
+        .map-container { height: 600px; margin: 20px 0; border: 2px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+        .controls { margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; }
+        button { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-google { background: #4285F4; color: white; }
+        .btn-naver { background: #03C75A; color: white; }
+        .info { padding: 15px; background: #fef3c7; border-left: 4px solid #f59e0b; margin: 20px 0; border-radius: 4px; }
+        pre { background: #1f2937; color: #f3f4f6; padding: 15px; border-radius: 8px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ 지도 API 통합 가이드</h1>
+        
+        <div class="info">
+            <strong>⚠️ API 키가 필요합니다</strong>
+            <p>실제 지도를 표시하려면 Google Maps 또는 Naver Maps API 키가 필요합니다.</p>
+            <ul>
+                <li><strong>Google Maps:</strong> <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a>에서 발급</li>
+                <li><strong>Naver Maps:</strong> <a href="https://www.ncloud.com/product/applicationService/maps" target="_blank">Naver Cloud Platform</a>에서 발급</li>
+            </ul>
+        </div>
+
+        <div class="controls">
+            <h3>지도 선택</h3>
+            <button class="btn-google" onclick="alert('Google Maps API 키를 wrangler.jsonc에 설정하세요')">
+                Google Maps 사용
+            </button>
+            <button class="btn-naver" onclick="alert('Naver Maps API 키를 wrangler.jsonc에 설정하세요')">
+                Naver Maps 사용
+            </button>
+        </div>
+
+        <div class="map-container" id="map">
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f3f4f6; color: #6b7280;">
+                <div style="text-align: center;">
+                    <svg style="width: 100px; height: 100px; margin-bottom: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                    <h3>지도가 여기에 표시됩니다</h3>
+                    <p>API 키를 설정하고 위 버튼을 클릭하세요</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>🔧 Google Maps 통합 예시</h2>
+        <pre><code>// 1. HTML에 Google Maps API 스크립트 추가
+&lt;script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer&gt;&lt;/script&gt;
+
+// 2. 지도 초기화 함수
+async function initGoogleMap() {
+    // 데이터 가져오기
+    const housesRes = await axios.get('/api/empty-houses/map/markers');
+    const farmsRes = await axios.get('/api/smart-farms/map/markers');
+    
+    // 지도 생성 (대한민국 중심)
+    const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 36.5, lng: 127.5 },
+        zoom: 7
+    });
+    
+    // 빈집 마커 추가
+    housesRes.data.data.forEach(house => {
+        const marker = new google.maps.Marker({
+            position: { lat: house.lat, lng: house.lng },
+            map: map,
+            title: house.address,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        });
+        
+        // 정보창 추가
+        const infoWindow = new google.maps.InfoWindow({
+            content: \`
+                &lt;div style="padding: 10px;"&gt;
+                    &lt;h3 style="margin: 0 0 10px 0;"&gt;\${house.house_type || '주택'}&lt;/h3&gt;
+                    &lt;p&gt;\${house.address}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;가격:&lt;/strong&gt; \${(house.price / 100).toFixed(0)}억원&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;유형:&lt;/strong&gt; \${house.rental_type}&lt;/p&gt;
+                &lt;/div&gt;
+            \`
+        });
+        
+        marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+        });
+    });
+    
+    // 스마트팜 마커 추가
+    farmsRes.data.data.forEach(farm => {
+        const marker = new google.maps.Marker({
+            position: { lat: farm.lat, lng: farm.lng },
+            map: map,
+            title: farm.name,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+        });
+        
+        const infoWindow = new google.maps.InfoWindow({
+            content: \`
+                &lt;div style="padding: 10px;"&gt;
+                    &lt;h3 style="margin: 0 0 10px 0;"&gt;\${farm.name}&lt;/h3&gt;
+                    &lt;p&gt;\${farm.address}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;유형:&lt;/strong&gt; \${farm.farm_type}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;작물:&lt;/strong&gt; \${farm.crop_type}&lt;/p&gt;
+                &lt;/div&gt;
+            \`
+        });
+        
+        marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+        });
+    });
+}</code></pre>
+
+        <h2>🔧 Naver Maps 통합 예시</h2>
+        <pre><code>// 1. HTML에 Naver Maps API 스크립트 추가
+&lt;script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"&gt;&lt;/script&gt;
+
+// 2. 지도 초기화 함수
+async function initNaverMap() {
+    // 데이터 가져오기
+    const housesRes = await axios.get('/api/empty-houses/map/markers');
+    const farmsRes = await axios.get('/api/smart-farms/map/markers');
+    
+    // 지도 생성 (대한민국 중심)
+    const map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(36.5, 127.5),
+        zoom: 7
+    });
+    
+    // 빈집 마커 추가
+    housesRes.data.data.forEach(house => {
+        const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(house.lat, house.lng),
+            map: map,
+            title: house.address,
+            icon: {
+                content: '&lt;div style="background: #3B82F6; color: white; padding: 8px; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;"&gt;🏠&lt;/div&gt;',
+                anchor: new naver.maps.Point(15, 15)
+            }
+        });
+        
+        // 정보창 추가
+        const infoWindow = new naver.maps.InfoWindow({
+            content: \`
+                &lt;div style="padding: 15px; min-width: 200px;"&gt;
+                    &lt;h3 style="margin: 0 0 10px 0; font-size: 16px;"&gt;\${house.house_type || '주택'}&lt;/h3&gt;
+                    &lt;p style="margin: 5px 0; font-size: 14px;"&gt;\${house.address}&lt;/p&gt;
+                    &lt;p style="margin: 5px 0;"&gt;&lt;strong&gt;가격:&lt;/strong&gt; \${(house.price / 100).toFixed(0)}억원&lt;/p&gt;
+                    &lt;p style="margin: 5px 0;"&gt;&lt;strong&gt;유형:&lt;/strong&gt; \${house.rental_type}&lt;/p&gt;
+                &lt;/div&gt;
+            \`
+        });
+        
+        naver.maps.Event.addListener(marker, 'click', () => {
+            if (infoWindow.getMap()) {
+                infoWindow.close();
+            } else {
+                infoWindow.open(map, marker);
+            }
+        });
+    });
+    
+    // 스마트팜 마커 추가
+    farmsRes.data.data.forEach(farm => {
+        const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(farm.lat, farm.lng),
+            map: map,
+            title: farm.name,
+            icon: {
+                content: '&lt;div style="background: #10B981; color: white; padding: 8px; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;"&gt;🚜&lt;/div&gt;',
+                anchor: new naver.maps.Point(15, 15)
+            }
+        });
+        
+        const infoWindow = new naver.maps.InfoWindow({
+            content: \`
+                &lt;div style="padding: 15px; min-width: 200px;"&gt;
+                    &lt;h3 style="margin: 0 0 10px 0; font-size: 16px;"&gt;\${farm.name}&lt;/h3&gt;
+                    &lt;p style="margin: 5px 0; font-size: 14px;"&gt;\${farm.address}&lt;/p&gt;
+                    &lt;p style="margin: 5px 0;"&gt;&lt;strong&gt;유형:&lt;/strong&gt; \${farm.farm_type}&lt;/p&gt;
+                    &lt;p style="margin: 5px 0;"&gt;&lt;strong&gt;작물:&lt;/strong&gt; \${farm.crop_type}&lt;/p&gt;
+                &lt;/div&gt;
+            \`
+        });
+        
+        naver.maps.Event.addListener(marker, 'click', () => {
+            if (infoWindow.getMap()) {
+                infoWindow.close();
+            } else {
+                infoWindow.open(map, marker);
+            }
+        });
+    });
+}</code></pre>
+
+        <h2>📝 wrangler.jsonc 설정 예시</h2>
+        <pre><code>{
+  "name": "webapp",
+  "compatibility_date": "2025-12-11",
+  "pages_build_output_dir": "./dist",
+  "compatibility_flags": ["nodejs_compat"],
+  
+  // 환경 변수로 API 키 설정
+  "vars": {
+    "GOOGLE_MAPS_API_KEY": "your-google-maps-api-key",
+    "NAVER_MAPS_CLIENT_ID": "your-naver-maps-client-id"
+  },
+  
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "webapp-production",
+      "database_id": "placeholder-id"
+    }
+  ]
+}</code></pre>
+
+        <h2>🎯 다음 단계</h2>
+        <ol>
+            <li>Google Cloud Console 또는 Naver Cloud Platform에서 API 키 발급</li>
+            <li>wrangler.jsonc에 API 키 추가</li>
+            <li>src/index.tsx에 지도 초기화 코드 추가</li>
+            <li>빌드 및 테스트</li>
+            <li>Cloudflare Pages에 배포</li>
+        </ol>
+
+        <div class="info" style="background: #dcfce7; border-left-color: #16a34a;">
+            <strong>✅ 현재 구현 상태</strong>
+            <p>API 엔드포인트는 모두 준비되었습니다. API 키만 설정하면 즉시 지도 통합이 가능합니다!</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script>
+        console.log('지도 API 통합 예시 페이지 로드됨');
+        console.log('API 엔드포인트 테스트:');
+        
+        // API 테스트
+        axios.get('/api/empty-houses/map/markers')
+            .then(res => console.log('빈집 마커:', res.data.data.length + '개'))
+            .catch(err => console.error('빈집 API 오류:', err));
+            
+        axios.get('/api/smart-farms/map/markers')
+            .then(res => console.log('스마트팜 마커:', res.data.data.length + '개'))
+            .catch(err => console.error('스마트팜 API 오류:', err));
+    </script>
+</body>
+</html>
