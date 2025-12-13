@@ -150,16 +150,6 @@ app.get('/', (c) => {
                     </div>
                 </div>
 
-                <!-- 지도 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-2">
-                    <div id="map-placeholder" class="h-48 flex items-center justify-center bg-gray-100">
-                        <div class="text-center p-2">
-                            <i class="fas fa-map-marked-alt text-3xl text-gray-400 mb-2"></i>
-                            <p class="text-xs text-gray-600" data-ko="지도 API 키 필요" data-en="Map API Key Required">지도 API 키 필요</p>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- 컴팩트 데이터 리스트 -->
                 <div id="dataList" class="grid grid-cols-2 gap-2"></div>
             </div>
