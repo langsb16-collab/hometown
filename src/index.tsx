@@ -65,12 +65,27 @@ app.get('/', (c) => {
                         <p class="text-xs text-gray-500">귀농·귀촌 플랫폼</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 flex-wrap">
                     <button onclick="switchLanguage('ko')" id="btn-ko" class="lang-btn active">
                         🇰🇷 한국어
                     </button>
                     <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">
-                        🇺🇸 English
+                        🇺🇸 EN
+                    </button>
+                    <button onclick="switchLanguage('zh')" id="btn-zh" class="lang-btn">
+                        🇨🇳 中文
+                    </button>
+                    <button onclick="switchLanguage('ja')" id="btn-ja" class="lang-btn">
+                        🇯🇵 日本
+                    </button>
+                    <button onclick="switchLanguage('mn')" id="btn-mn" class="lang-btn">
+                        🇲🇳 MN
+                    </button>
+                    <button onclick="switchLanguage('ru')" id="btn-ru" class="lang-btn">
+                        🇷🇺 RU
+                    </button>
+                    <button onclick="switchLanguage('vi')" id="btn-vi" class="lang-btn">
+                        🇻🇳 VN
                     </button>
                 </div>
             </div>
@@ -79,15 +94,29 @@ app.get('/', (c) => {
         <!-- 컴팩트 히어로 -->
         <section class="bg-gradient-to-r from-green-600 to-emerald-700 text-white compact-section py-4">
             <div class="compact-container text-center">
-                <h2 class="text-lg font-bold mb-2" data-ko="농촌의 미래와 귀농인의 꿈을 한곳에서" data-en="Rural Future & Farmer's Dream in One Place">
+                <h2 class="text-lg font-bold mb-2" 
+                    data-ko="농촌의 미래와 귀농인의 꿈을 한곳에서" 
+                    data-en="Rural Future & Farmer's Dream in One Place"
+                    data-zh="农村的未来与农民的梦想尽在一处"
+                    data-ja="農村の未来と農業者の夢を一箇所で"
+                    data-mn="Хөдөөгийн ирээдүй болон тариаланчдын мөрөөдөл нэг газарт"
+                    data-ru="Будущее села и мечта фермера в одном месте"
+                    data-vi="Tương lai nông thôn và ước mơ của nông dân tại một nơi">
                     농촌의 미래와 귀농인의 꿈을 한곳에서
                 </h2>
-                <p class="text-xs mb-3 text-green-100" data-ko="인구 소멸 위기를 기회로 바꾸는 귀농·귀촌 종합 플랫폼" data-en="Comprehensive platform turning depopulation crisis into opportunity">
+                <p class="text-xs mb-3 text-green-100" 
+                    data-ko="인구 소멸 위기를 기회로 바꾸는 귀농·귀촌 종합 플랫폼" 
+                    data-en="Comprehensive platform turning depopulation crisis into opportunity"
+                    data-zh="将人口消失危机转变为机遇的综合农业定居平台"
+                    data-ja="人口減少危機を機会に変える総合農業定住プラットフォーム"
+                    data-mn="Хүн амын тоо буурах хямралыг боломж болгон хувиргах цогц хөдөө аж ахуйн суурьшлын платформ"
+                    data-ru="Комплексная платформа для превращения кризиса депопуляции в возможность"
+                    data-vi="Nền tảng tổng hợp biến khủng hoảng giảm dân số thành cơ hội">
                     인구 소멸 위기를 기회로 바꾸는 귀농·귀촌 종합 플랫폼
                 </p>
                 <div class="flex justify-center gap-2">
                     <button onclick="scrollToMap()" class="bg-white text-green-600 px-4 py-1.5 rounded-md text-xs font-semibold">
-                        <i class="fas fa-map-marked-alt mr-1"></i><span data-ko="지역 찾기" data-en="Find Region">지역 찾기</span>
+                        <i class="fas fa-map-marked-alt mr-1"></i><span data-ko="지역 찾기" data-en="Find Region" data-zh="查找地区" data-ja="地域を探す" data-mn="Бүс нутаг хайх" data-ru="Найти регион" data-vi="Tìm khu vực">지역 찾기</span>
                     </button>
                 </div>
             </div>
@@ -96,27 +125,27 @@ app.get('/', (c) => {
         <!-- 컴팩트 주요 기능 -->
         <section class="compact-section py-3 bg-white">
             <div class="compact-container">
-                <h3 class="text-base font-bold text-center mb-3" data-ko="무엇을 도와드릴까요?" data-en="How can we help?">무엇을 도와드릴까요?</h3>
+                <h3 class="text-base font-bold text-center mb-3" data-ko="무엇을 도와드릴까요?" data-en="How can we help?" data-zh="我们能为您做什么？" data-ja="何をお手伝いできますか？" data-mn="Бид танд юугаар тусалж чадах вэ?" data-ru="Чем мы можем помочь?" data-vi="Chúng tôi có thể giúp gì cho bạn?">무엇을 도와드릴까요?</h3>
                 <div class="grid grid-cols-2 gap-2">
                     <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
                         <i class="fas fa-home text-2xl text-blue-500 mb-1"></i>
-                        <h4 class="text-xs font-semibold mb-1" data-ko="빈집 찾기" data-en="Empty Houses">빈집 찾기</h4>
-                        <p class="text-xs text-gray-600" data-ko="저렴한 주거 공간" data-en="Affordable Housing">저렴한 주거 공간</p>
+                        <h4 class="text-xs font-semibold mb-1" data-ko="빈집 찾기" data-en="Empty Houses" data-zh="寻找空房" data-ja="空き家を探す" data-mn="Хоосон байшин хайх" data-ru="Найти пустой дом" data-vi="Tìm nhà trống">빈집 찾기</h4>
+                        <p class="text-xs text-gray-600" data-ko="저렴한 주거 공간" data-en="Affordable Housing" data-zh="实惠的住房" data-ja="手頃な住宅" data-mn="Боломжийн орон сууц" data-ru="Доступное жилье" data-vi="Nhà ở giá phải chăng">저렴한 주거 공간</p>
                     </div>
                     <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
                         <i class="fas fa-tractor text-2xl text-green-500 mb-1"></i>
-                        <h4 class="text-xs font-semibold mb-1" data-ko="스마트팜" data-en="Smart Farm">스마트팜</h4>
-                        <p class="text-xs text-gray-600" data-ko="첨단 농업 기술" data-en="Advanced Tech">첨단 농업 기술</p>
+                        <h4 class="text-xs font-semibold mb-1" data-ko="스마트팜" data-en="Smart Farm" data-zh="智慧农场" data-ja="スマートファーム" data-mn="Ухаалаг ферм" data-ru="Умная ферма" data-vi="Trang trại thông minh">스마트팜</h4>
+                        <p class="text-xs text-gray-600" data-ko="첨단 농업 기술" data-en="Advanced Tech" data-zh="尖端农业技术" data-ja="先端農業技術" data-mn="Дэвшилтэт хөдөө аж ахуйн технологи" data-ru="Передовые агротехнологии" data-vi="Công nghệ nông nghiệp tiên tiến">첨단 농업 기술</p>
                     </div>
                     <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
                         <i class="fas fa-graduation-cap text-2xl text-purple-500 mb-1"></i>
-                        <h4 class="text-xs font-semibold mb-1" data-ko="교육/체험" data-en="Education">교육/체험</h4>
-                        <p class="text-xs text-gray-600" data-ko="농업 기술 교육" data-en="Farming Education">농업 기술 교육</p>
+                        <h4 class="text-xs font-semibold mb-1" data-ko="교육/체험" data-en="Education" data-zh="教育/体验" data-ja="教育/体験" data-mn="Боловсрол/Туршлага" data-ru="Обучение/Опыт" data-vi="Giáo dục/Trải nghiệm">교육/체험</h4>
+                        <p class="text-xs text-gray-600" data-ko="농업 기술 교육" data-en="Farming Education" data-zh="农业技术教育" data-ja="農業技術教育" data-mn="Хөдөө аж ахуйн техникийн боловсрол" data-ru="Обучение агротехнологиям" data-vi="Giáo dục kỹ thuật nông nghiệp">농업 기술 교육</p>
                     </div>
                     <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
                         <i class="fas fa-hand-holding-usd text-2xl text-yellow-500 mb-1"></i>
-                        <h4 class="text-xs font-semibold mb-1" data-ko="지원금 안내" data-en="Support Fund">지원금 안내</h4>
-                        <p class="text-xs text-gray-600" data-ko="정착 지원 패키지" data-en="Settlement Package">정착 지원 패키지</p>
+                        <h4 class="text-xs font-semibold mb-1" data-ko="지원금 안내" data-en="Support Fund" data-zh="补助金指南" data-ja="支援金案内" data-mn="Дэмжлэгийн сангийн мэдээлэл" data-ru="Информация о субсидиях" data-vi="Hướng dẫn trợ cấp">지원금 안내</h4>
+                        <p class="text-xs text-gray-600" data-ko="정착 지원 패키지" data-en="Settlement Package" data-zh="定居支持套餐" data-ja="定住支援パッケージ" data-mn="Суурьшлын дэмжлэгийн багц" data-ru="Пакет поддержки поселения" data-vi="Gói hỗ trợ định cư">정착 지원 패키지</p>
                     </div>
                 </div>
             </div>
@@ -125,27 +154,27 @@ app.get('/', (c) => {
         <!-- 컴팩트 지도 섹션 -->
         <section id="map-section" class="compact-section py-3 bg-gray-50">
             <div class="compact-container">
-                <h3 class="text-base font-bold text-center mb-2" data-ko="빈집 & 스마트팜 위치" data-en="Empty Houses & Smart Farms">빈집 & 스마트팜 위치</h3>
+                <h3 class="text-base font-bold text-center mb-2" data-ko="빈집 & 스마트팜 위치" data-en="Empty Houses & Smart Farms" data-zh="空房与智慧农场位置" data-ja="空き家とスマートファームの位置" data-mn="Хоосон байшин ба ухаалаг фермийн байршил" data-ru="Расположение пустых домов и умных ферм" data-vi="Vị trí nhà trống và trang trại thông minh">빈집 & 스마트팜 위치</h3>
                 
                 <!-- 컴팩트 필터 -->
                 <div class="bg-white rounded-lg shadow-sm p-2 mb-2">
                     <div class="flex justify-between items-center gap-1 mb-2">
                         <div class="flex gap-1 flex-1">
                             <button id="showEmptyHouses" class="flex-1 px-2 py-1 bg-blue-500 text-white rounded text-xs">
-                                <i class="fas fa-home mr-1"></i><span data-ko="빈집" data-en="Houses">빈집</span>
+                                <i class="fas fa-home mr-1"></i><span data-ko="빈집" data-en="Houses" data-zh="空房" data-ja="空き家" data-mn="Хоосон байшин" data-ru="Пустые дома" data-vi="Nhà trống">빈집</span>
                             </button>
                             <button id="showSmartFarms" class="flex-1 px-2 py-1 bg-green-500 text-white rounded text-xs">
-                                <i class="fas fa-tractor mr-1"></i><span data-ko="스마트팜" data-en="Farms">스마트팜</span>
+                                <i class="fas fa-tractor mr-1"></i><span data-ko="스마트팜" data-en="Farms" data-zh="智慧农场" data-ja="スマートファーム" data-mn="Ухаалаг ферм" data-ru="Умные фермы" data-vi="Trang trại thông minh">스마트팜</span>
                             </button>
                             <button id="showAll" class="flex-1 px-2 py-1 bg-gray-500 text-white rounded text-xs">
-                                <i class="fas fa-eye mr-1"></i><span data-ko="전체" data-en="All">전체</span>
+                                <i class="fas fa-eye mr-1"></i><span data-ko="전체" data-en="All" data-zh="全部" data-ja="全て" data-mn="Бүгд" data-ru="Все" data-vi="Tất cả">전체</span>
                             </button>
                         </div>
                     </div>
                     
                     <div class="flex gap-1">
                         <select id="regionFilter" class="flex-1 px-2 py-1 border border-gray-300 rounded text-xs">
-                            <option value="" data-ko="전체 지역" data-en="All Regions">전체 지역</option>
+                            <option value="" data-ko="전체 지역" data-en="All Regions" data-zh="所有地区" data-ja="全地域" data-mn="Бүх бүс нутаг" data-ru="Все регионы" data-vi="Tất cả khu vực">전체 지역</option>
                         </select>
                     </div>
                 </div>
@@ -160,9 +189,9 @@ app.get('/', (c) => {
             <div class="compact-container">
                 <div class="text-center mb-3">
                     <h3 class="text-base font-bold mb-1 text-red-800">
-                        <i class="fas fa-exclamation-triangle mr-1"></i><span data-ko="인구 소멸 위기 지역" data-en="Depopulation Crisis Regions">인구 소멸 위기 지역</span>
+                        <i class="fas fa-exclamation-triangle mr-1"></i><span data-ko="인구 소멸 위기 지역" data-en="Depopulation Crisis Regions" data-zh="人口消失危机地区" data-ja="人口減少危機地域" data-mn="Хүн ам үгүй болох үзүүлэлт бүс нутаг" data-ru="Регионы кризиса депопуляции" data-vi="Khu vực khủng hoảng giảm dân số">인구 소멸 위기 지역</span>
                     </h3>
-                    <p class="text-xs text-gray-700" data-ko="위험이 높은 지역일수록 더 많은 지원" data-en="Higher risk = More support">위험이 높은 지역일수록 더 많은 지원</p>
+                    <p class="text-xs text-gray-700" data-ko="위험이 높은 지역일수록 더 많은 지원" data-en="Higher risk = More support" data-zh="风险越高，支持越多" data-ja="リスクが高いほど多くの支援" data-mn="Эрсдэл их бүс нутаг илүү дэмжлэг" data-ru="Чем выше риск, тем больше поддержка" data-vi="Rủi ro cao hơn = Hỗ trợ nhiều hơn">위험이 높은 지역일수록 더 많은 지원</p>
                 </div>
                 <div id="riskRegions" class="grid grid-cols-1 gap-2"></div>
             </div>
@@ -173,7 +202,7 @@ app.get('/', (c) => {
             <div class="compact-container">
                 <div class="text-center">
                     <h4 class="text-sm font-bold mb-2">RuralBase</h4>
-                    <p class="text-xs text-gray-400 mb-2" data-ko="인구 소멸 위기를 기회로 바꾸는 귀농·귀촌 플랫폼" data-en="Platform turning crisis into opportunity">인구 소멸 위기를 기회로 바꾸는 플랫폼</p>
+                    <p class="text-xs text-gray-400 mb-2" data-ko="인구 소멸 위기를 기회로 바꾸는 귀농·귀촌 플랫폼" data-en="Platform turning crisis into opportunity" data-zh="将危机转变为机遇的平台" data-ja="危機をチャンスに変えるプラットフォーム" data-mn="Үзүүлэлтийг боломж болгон хувьсгах платформ" data-ru="Платформа, превращающая кризис в возможность" data-vi="Nền tảng biến khủng hoảng thành cơ hội">인구 소멸 위기를 기회로 바꾸는 플랫폼</p>
                     <div class="text-xs text-gray-400 space-y-1">
                         <p><i class="fas fa-phone mr-1"></i>1588-1234</p>
                         <p><i class="fas fa-envelope mr-1"></i>info@ruralbase.kr</p>
@@ -194,6 +223,16 @@ app.get('/', (c) => {
             let currentLang = 'ko';
             
             // 언어 전환
+            const translations = {
+                ko: { risk: '위험', detail: '상세 보기', elderly: '고령화', empty: '빈집률', support: '지원', billion: '억원', emptyHouse: '빈집', smartFarm: '스마트팜', house: '주택', tbd: '미정', sale: '매매', complex: '복합', education: '교육형' },
+                en: { risk: 'Risk', detail: 'Details', elderly: 'Elderly', empty: 'Empty', support: 'Support', billion: 'B KRW', emptyHouse: 'Empty House', smartFarm: 'Smart Farm', house: 'House', tbd: 'TBD', sale: 'Sale', complex: 'Complex', education: 'Education' },
+                zh: { risk: '风险', detail: '详情', elderly: '老龄化', empty: '空房率', support: '支持', billion: '亿韩元', emptyHouse: '空房', smartFarm: '智慧农场', house: '住宅', tbd: '待定', sale: '买卖', complex: '综合', education: '教育型' },
+                ja: { risk: 'リスク', detail: '詳細', elderly: '高齢化', empty: '空き家率', support: '支援', billion: '億ウォン', emptyHouse: '空き家', smartFarm: 'スマートファーム', house: '住宅', tbd: '未定', sale: '売買', complex: '複合', education: '教育型' },
+                mn: { risk: 'Эрсдэл', detail: 'Дэлгэрэнгүй', elderly: 'Өндөр нас', empty: 'Хоосон байшин', support: 'Дэмжлэг', billion: 'тэрбум вон', emptyHouse: 'Хоосон байшин', smartFarm: 'Ухаалаг ферм', house: 'Орон сууц', tbd: 'Тодорхойгүй', sale: 'Худалдаа', complex: 'Цогц', education: 'Боловсролын' },
+                ru: { risk: 'Риск', detail: 'Подробнее', elderly: 'Старение', empty: 'Пустые дома', support: 'Поддержка', billion: 'млрд вон', emptyHouse: 'Пустой дом', smartFarm: 'Умная ферма', house: 'Дом', tbd: 'Уточняется', sale: 'Продажа', complex: 'Комплекс', education: 'Образование' },
+                vi: { risk: 'Rủi ro', detail: 'Chi tiết', elderly: 'Già hóa', empty: 'Tỷ lệ nhà trống', support: 'Hỗ trợ', billion: 'tỷ won', emptyHouse: 'Nhà trống', smartFarm: 'Trang trại thông minh', house: 'Nhà ở', tbd: 'Chưa xác định', sale: 'Bán', complex: 'Phức hợp', education: 'Giáo dục' }
+            };
+
             function switchLanguage(lang) {
                 currentLang = lang;
                 document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
@@ -202,6 +241,10 @@ app.get('/', (c) => {
                 document.querySelectorAll('[data-' + lang + ']').forEach(el => {
                     el.textContent = el.getAttribute('data-' + lang);
                 });
+                
+                // 동적 콘텐츠 재렌더링
+                updateRiskRegions();
+                updateDataList('all');
             }
             
             async function loadData() {
@@ -237,20 +280,21 @@ app.get('/', (c) => {
             function updateRiskRegions() {
                 const container = document.getElementById('riskRegions');
                 const highRiskRegions = regionsData.filter(r => r.population_risk_level >= 3).slice(0, 3);
+                const t = translations[currentLang];
                 
                 container.innerHTML = highRiskRegions.map(region => \`
                     <div class="bg-white rounded-lg shadow-sm p-3">
                         <div class="flex items-center justify-between mb-2">
                             <h4 class="text-sm font-semibold">\${region.province} \${region.name}</h4>
-                            <span class="px-2 py-0.5 bg-red-500 text-white text-xs rounded-full">위험 \${region.population_risk_level}</span>
+                            <span class="px-2 py-0.5 bg-red-500 text-white text-xs rounded-full">\${t.risk} \${region.population_risk_level}</span>
                         </div>
                         <div class="space-y-1 text-xs text-gray-600">
-                            <p><i class="fas fa-user-clock mr-1 text-red-500"></i>고령화: \${region.elderly_rate}%</p>
-                            <p><i class="fas fa-home mr-1 text-blue-500"></i>빈집률: \${region.empty_house_rate}%</p>
-                            <p><i class="fas fa-won-sign mr-1 text-green-500"></i>지원: \${(region.support_budget / 10000).toFixed(0)}억원</p>
+                            <p><i class="fas fa-user-clock mr-1 text-red-500"></i>\${t.elderly}: \${region.elderly_rate}%</p>
+                            <p><i class="fas fa-home mr-1 text-blue-500"></i>\${t.empty}: \${region.empty_house_rate}%</p>
+                            <p><i class="fas fa-won-sign mr-1 text-green-500"></i>\${t.support}: \${(region.support_budget / 10000).toFixed(0)}\${t.billion}</p>
                         </div>
                         <button class="mt-2 w-full px-2 py-1 bg-green-500 text-white rounded text-xs">
-                            상세 보기
+                            \${t.detail}
                         </button>
                     </div>
                 \`).join('');
@@ -258,6 +302,7 @@ app.get('/', (c) => {
             
             function updateDataList(type) {
                 const container = document.getElementById('dataList');
+                const t = translations[currentLang];
                 let items = [];
                 
                 if (type === 'houses' || type === 'all') {
@@ -276,12 +321,12 @@ app.get('/', (c) => {
                                     <i class="fas fa-home text-white text-3xl"></i>
                                 </div>
                                 <div class="p-2">
-                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">빈집</span>
-                                    <h4 class="text-xs font-semibold mt-1">\${item.house_type || '주택'}</h4>
+                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">\${t.emptyHouse}</span>
+                                    <h4 class="text-xs font-semibold mt-1">\${item.house_type || t.house}</h4>
                                     <p class="text-xs text-gray-600 truncate">\${item.address}</p>
                                     <div class="flex justify-between items-center mt-1">
-                                        <span class="text-sm font-bold text-green-600">\${item.price ? (item.price / 100).toFixed(0) + '억' : '미정'}</span>
-                                        <span class="text-xs text-gray-500">\${item.rental_type || '매매'}</span>
+                                        <span class="text-sm font-bold text-green-600">\${item.price ? (item.price / 100).toFixed(0) + t.billion : t.tbd}</span>
+                                        <span class="text-xs text-gray-500">\${item.rental_type || t.sale}</span>
                                     </div>
                                 </div>
                             </div>
@@ -293,12 +338,12 @@ app.get('/', (c) => {
                                     <i class="fas fa-tractor text-white text-3xl"></i>
                                 </div>
                                 <div class="p-2">
-                                    <span class="px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">스마트팜</span>
+                                    <span class="px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">\${t.smartFarm}</span>
                                     <h4 class="text-xs font-semibold mt-1">\${item.name}</h4>
                                     <p class="text-xs text-gray-600 truncate">\${item.address}</p>
                                     <div class="flex justify-between items-center mt-1">
-                                        <span class="text-xs text-gray-700">\${item.crop_type || '복합'}</span>
-                                        <span class="text-xs font-semibold text-green-600">\${item.farm_type || '교육형'}</span>
+                                        <span class="text-xs text-gray-700">\${item.crop_type || t.complex}</span>
+                                        <span class="text-xs font-semibold text-green-600">\${item.farm_type || t.education}</span>
                                     </div>
                                 </div>
                             </div>
