@@ -150,32 +150,72 @@ app.get('/', (c) => {
                 </div>
                 
                 <!-- 하위 메뉴 (초기에는 숨김) -->
-                <div id="menu-emptyHouse" class="hidden mt-3 bg-blue-50 rounded-lg p-3">
-                    <h5 class="text-sm font-bold mb-2 text-blue-800" data-ko="빈집 관련 영상" data-en="Empty House Videos" data-zh="空房相关视频" data-ja="空き家関連動画" data-mn="Хоосон байшингийн видео" data-ru="Видео о пустых домах" data-vi="Video nhà trống">빈집 관련 영상</h5>
-                    <button onclick="scrollToVideos()" class="w-full px-3 py-2 bg-blue-500 text-white rounded text-xs">
-                        <i class="fas fa-play-circle mr-1"></i><span data-ko="지원책 영상 보기" data-en="Watch Support Videos" data-zh="观看支持视频" data-ja="支援動画を見る" data-mn="Дэмжлэгийн видео үзэх" data-ru="Смотреть видео поддержки" data-vi="Xem video hỗ trợ">지원책 영상 보기</span>
-                    </button>
+                <div id="menu-emptyHouse" class="hidden mt-3 bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
+                    <h5 class="text-sm font-bold mb-2 text-blue-800" data-ko="빈집 매칭 서비스" data-en="Empty House Matching" data-zh="空房匹配服务" data-ja="空き家マッチングサービス" data-mn="Хоосон байшны тааруулах үйлчилгээ" data-ru="Подбор пустых домов" data-vi="Dịch vụ kết nối nhà trống">빈집 매칭 서비스</h5>
+                    <div class="space-y-2">
+                        <div class="bg-white p-2 rounded text-xs">
+                            <p class="text-gray-700 mb-2" data-ko="🏠 전국 빈집 데이터베이스 제공" data-en="🏠 National empty house database" data-zh="🏠 提供全国空房数据库" data-ja="🏠 全国空き家データベース提供" data-mn="🏠 Улсын хоосон байшингийн мэдээллийн сан" data-ru="🏠 Национальная база данных пустых домов" data-vi="🏠 Cơ sở dữ liệu nhà trống toàn quốc">🏠 전국 빈집 데이터베이스 제공</p>
+                            <p class="text-gray-700 mb-2" data-ko="💰 저렴한 가격의 농촌 주택" data-en="💰 Affordable rural housing" data-zh="💰 价格实惠的农村住房" data-ja="💰 手頃な価格の農村住宅" data-mn="💰 Боломжийн үнэтэй хөдөө орон сууц" data-ru="💰 Доступное сельское жилье" data-vi="💰 Nhà ở nông thôn giá rẻ">💰 저렴한 가격의 농촌 주택</p>
+                            <p class="text-gray-700" data-ko="📋 리모델링 지원 프로그램 연계" data-en="📋 Renovation support program" data-zh="📋 关联改造支持项目" data-ja="📋 リフォーム支援プログラム連携" data-mn="📋 Засварын дэмжлэгийн хөтөлбөр" data-ru="📋 Программа поддержки ремонта" data-vi="📋 Chương trình hỗ trợ cải tạo">📋 리모델링 지원 프로그램 연계</p>
+                        </div>
+                        <button onclick="scrollToMap(); filterVideos('policy')" class="w-full px-3 py-2 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                            <i class="fas fa-search-location mr-1"></i><span data-ko="빈집 지도에서 찾기" data-en="Find on Map" data-zh="在地图上查找空房" data-ja="地図で探す" data-mn="Газрын зураг дээр хайх" data-ru="Найти на карте" data-vi="Tìm trên bản đồ">빈집 지도에서 찾기</span>
+                        </button>
+                        <button onclick="scrollToVideos(); filterVideos('policy')" class="w-full px-3 py-2 bg-blue-400 text-white rounded text-xs hover:bg-blue-500">
+                            <i class="fas fa-play-circle mr-1"></i><span data-ko="지원 정책 영상 보기" data-en="Watch Policy Videos" data-zh="观看政策视频" data-ja="政策動画を見る" data-mn="Бодлогын видео үзэх" data-ru="Смотреть видео о политике" data-vi="Xem video chính sách">지원 정책 영상 보기</span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div id="menu-smartFarm" class="hidden mt-3 bg-green-50 rounded-lg p-3">
-                    <h5 class="text-sm font-bold mb-2 text-green-800" data-ko="스마트팜 정보" data-en="Smart Farm Info" data-zh="智慧农场信息" data-ja="スマートファーム情報" data-mn="Ухаалаг фермийн мэдээлэл" data-ru="Информация об умных фермах" data-vi="Thông tin trang trại thông minh">스마트팜 정보</h5>
-                    <button onclick="scrollToMap()" class="w-full px-3 py-2 bg-green-500 text-white rounded text-xs">
-                        <i class="fas fa-map-marked-alt mr-1"></i><span data-ko="지도에서 보기" data-en="View on Map" data-zh="在地图上查看" data-ja="地図で見る" data-mn="Газрын зураг дээр үзэх" data-ru="Посмотреть на карте" data-vi="Xem trên bản đồ">지도에서 보기</span>
-                    </button>
+                <div id="menu-smartFarm" class="hidden mt-3 bg-green-50 rounded-lg p-3 border-l-4 border-green-500">
+                    <h5 class="text-sm font-bold mb-2 text-green-800" data-ko="스마트팜 창업 지원" data-en="Smart Farm Startup" data-zh="智慧农场创业支持" data-ja="スマートファーム創業支援" data-mn="Ухаалаг ферм бизнес дэмжлэг" data-ru="Поддержка стартапов умных ферм" data-vi="Hỗ trợ khởi nghiệp trang trại thông minh">스마트팜 창업 지원</h5>
+                    <div class="space-y-2">
+                        <div class="bg-white p-2 rounded text-xs">
+                            <p class="text-gray-700 mb-2" data-ko="🌱 첨단 농업 기술 교육" data-en="🌱 Advanced agri-tech training" data-zh="🌱 尖端农业技术教育" data-ja="🌱 先端農業技術教育" data-mn="🌱 Дэвшилтэт хөдөө аж ахуйн технологийн сургалт" data-ru="🌱 Обучение передовым агротехнологиям" data-vi="🌱 Đào tạo công nghệ nông nghiệp tiên tiến">🌱 첨단 농업 기술 교육</p>
+                            <p class="text-gray-700 mb-2" data-ko="💻 IoT·빅데이터 기반 농장 관리" data-en="💻 IoT & Big Data farm management" data-zh="💻 基于物联网和大数据的农场管理" data-ja="💻 IoT・ビッグデータ基盤農場管理" data-mn="💻 IoT болон том өгөгдөл дээр суурилсан фермийн удирдлага" data-ru="💻 Управление фермой на основе IoT и больших данных" data-vi="💻 Quản lý trang trại dựa trên IoT và Big Data">💻 IoT·빅데이터 기반 농장 관리</p>
+                            <p class="text-gray-700" data-ko="📊 수익 모델 컨설팅" data-en="📊 Revenue model consulting" data-zh="📊 收益模式咨询" data-ja="📊 収益モデルコンサルティング" data-mn="📊 Орлогын загварын зөвлөгөө" data-ru="📊 Консультирование по бизнес-моделям" data-vi="📊 Tư vấn mô hình doanh thu">📊 수익 모델 컨설팅</p>
+                        </div>
+                        <button onclick="scrollToMap(); updateDataList('farms')" class="w-full px-3 py-2 bg-green-500 text-white rounded text-xs hover:bg-green-600">
+                            <i class="fas fa-map-marked-alt mr-1"></i><span data-ko="스마트팜 지도 보기" data-en="View Farm Map" data-zh="查看智慧农场地图" data-ja="スマートファーム地図を見る" data-mn="Ухаалаг фермийн газрын зураг үзэх" data-ru="Посмотреть карту ферм" data-vi="Xem bản đồ trang trại">스마트팜 지도 보기</span>
+                        </button>
+                        <button onclick="scrollToVideos(); filterVideos('education')" class="w-full px-3 py-2 bg-green-400 text-white rounded text-xs hover:bg-green-500">
+                            <i class="fas fa-graduation-cap mr-1"></i><span data-ko="창업 교육 영상" data-en="Watch Startup Videos" data-zh="观看创业教育视频" data-ja="創業教育動画" data-mn="Бизнес эхлүүлэх сургалтын видео" data-ru="Смотреть обучающие видео" data-vi="Xem video khởi nghiệp">창업 교육 영상</span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div id="menu-education" class="hidden mt-3 bg-purple-50 rounded-lg p-3">
-                    <h5 class="text-sm font-bold mb-2 text-purple-800" data-ko="교육 프로그램" data-en="Education Programs" data-zh="教育项目" data-ja="教育プログラム" data-mn="Боловсролын хөтөлбөр" data-ru="Образовательные программы" data-vi="Chương trình giáo dục">교육 프로그램</h5>
-                    <button onclick="scrollToVideos()" class="w-full px-3 py-2 bg-purple-500 text-white rounded text-xs">
-                        <i class="fas fa-graduation-cap mr-1"></i><span data-ko="교육 영상 보기" data-en="Watch Education Videos" data-zh="观看教育视频" data-ja="教育動画を見る" data-mn="Боловсролын видео үзэх" data-ru="Смотреть образовательные видео" data-vi="Xem video giáo dục">교육 영상 보기</span>
-                    </button>
+                <div id="menu-education" class="hidden mt-3 bg-purple-50 rounded-lg p-3 border-l-4 border-purple-500">
+                    <h5 class="text-sm font-bold mb-2 text-purple-800" data-ko="귀농귀촌 교육 프로그램" data-en="Farming Education Program" data-zh="返乡务农教育项目" data-ja="帰農帰村教育プログラム" data-mn="Хөдөө рүү буцах боловсролын хөтөлбөр" data-ru="Образовательная программа" data-vi="Chương trình giáo dục nông nghiệp">귀농귀촌 교육 프로그램</h5>
+                    <div class="space-y-2">
+                        <div class="bg-white p-2 rounded text-xs">
+                            <p class="text-gray-700 mb-2" data-ko="📚 체계적인 귀농 교육 과정" data-en="📚 Systematic farming education" data-zh="📚 系统化的返乡务农教育课程" data-ja="📚 体系的な帰農教育課程" data-mn="📚 Системтэй хөдөө аж ахуйн боловсролын курс" data-ru="📚 Систематическое обучение фермерству" data-vi="📚 Khóa học nông nghiệp có hệ thống">📚 체계적인 귀농 교육 과정</p>
+                            <p class="text-gray-700 mb-2" data-ko="🎓 전문가 멘토링 프로그램" data-en="🎓 Expert mentoring program" data-zh="🎓 专家指导项目" data-ja="🎓 専門家メンタリングプログラム" data-mn="🎓 Мэргэжилтний удирдлагын хөтөлбөр" data-ru="🎓 Программа менторства экспертов" data-vi="🎓 Chương trình cố vấn chuyên gia">🎓 전문가 멘토링 프로그램</p>
+                            <p class="text-gray-700" data-ko="🌾 현장 실습 기회 제공" data-en="🌾 On-site training opportunities" data-zh="🌾 提供现场实习机会" data-ja="🌾 現場実習機会提供" data-mn="🌾 Хээрийн дадлагын боломж" data-ru="🌾 Возможности практической подготовки" data-vi="🌾 Cơ hội thực tập thực tế">🌾 현장 실습 기회 제공</p>
+                        </div>
+                        <button onclick="scrollToVideos(); filterVideos('education')" class="w-full px-3 py-2 bg-purple-500 text-white rounded text-xs hover:bg-purple-600">
+                            <i class="fas fa-book-open mr-1"></i><span data-ko="교육 영상 전체 보기" data-en="View All Education Videos" data-zh="查看全部教育视频" data-ja="教育動画全体を見る" data-mn="Бүх боловсролын видео үзэх" data-ru="Посмотреть все обучающие видео" data-vi="Xem tất cả video giáo dục">교육 영상 전체 보기</span>
+                        </button>
+                        <button onclick="scrollToVideos(); filterVideos('success')" class="w-full px-3 py-2 bg-purple-400 text-white rounded text-xs hover:bg-purple-500">
+                            <i class="fas fa-trophy mr-1"></i><span data-ko="성공 사례 보기" data-en="View Success Stories" data-zh="查看成功案例" data-ja="成功事例を見る" data-mn="Амжилтын түүх үзэх" data-ru="Посмотреть истории успеха" data-vi="Xem câu chuyện thành công">성공 사례 보기</span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div id="menu-support" class="hidden mt-3 bg-yellow-50 rounded-lg p-3">
-                    <h5 class="text-sm font-bold mb-2 text-yellow-800" data-ko="지원금 정보" data-en="Support Fund Info" data-zh="补助金信息" data-ja="支援金情報" data-mn="Дэмжлэгийн сангийн мэдээлэл" data-ru="Информация о субсидиях" data-vi="Thông tin trợ cấp">지원금 정보</h5>
-                    <button onclick="scrollToVideos()" class="w-full px-3 py-2 bg-yellow-500 text-white rounded text-xs">
-                        <i class="fas fa-hand-holding-usd mr-1"></i><span data-ko="지원 정책 영상" data-en="Support Policy Videos" data-zh="支持政策视频" data-ja="支援政策動画" data-mn="Дэмжлэгийн бодлогын видео" data-ru="Видео о политике поддержки" data-vi="Video chính sách hỗ trợ">지원 정책 영상</span>
-                    </button>
+                <div id="menu-support" class="hidden mt-3 bg-yellow-50 rounded-lg p-3 border-l-4 border-yellow-500">
+                    <h5 class="text-sm font-bold mb-2 text-yellow-800" data-ko="정착 지원금 안내" data-en="Settlement Subsidy Guide" data-zh="定居支持补助指南" data-ja="定住支援金案内" data-mn="Суурьшлын дэмжлэгийн мэдээлэл" data-ru="Руководство по субсидиям" data-vi="Hướng dẫn trợ cấp định cư">정착 지원금 안내</h5>
+                    <div class="space-y-2">
+                        <div class="bg-white p-2 rounded text-xs">
+                            <p class="text-gray-700 mb-2" data-ko="💰 정착 자금 최대 3억원 지원" data-en="💰 Up to 300M won settlement fund" data-zh="💰 最多支持3亿韩元定居资金" data-ja="💰 最大3億ウォン定住資金支援" data-mn="💰 300 сая вон хүртэлх суурьшлын сан" data-ru="💰 До 300 млн вон на поселение" data-vi="💰 Hỗ trợ tối đa 300 triệu won">💰 정착 자금 최대 3억원 지원</p>
+                            <p class="text-gray-700 mb-2" data-ko="🏡 주택 구입·리모델링 지원" data-en="🏡 Housing purchase & renovation" data-zh="🏡 支持购房和改造" data-ja="🏡 住宅購入・リフォーム支援" data-mn="🏡 Орон сууц худалдан авах, засварын дэмжлэг" data-ru="🏡 Покупка и ремонт жилья" data-vi="🏡 Hỗ trợ mua nhà và cải tạo">🏡 주택 구입·리모델링 지원</p>
+                            <p class="text-gray-700" data-ko="🚜 농기계·시설 구입 보조" data-en="🚜 Farm equipment subsidies" data-zh="🚜 补助购买农机和设施" data-ja="🚜 農機械・施設購入補助" data-mn="🚜 Хөдөө аж ахуйн машин, байгууламжийн тусламж" data-ru="🚜 Субсидии на сельхозтехнику" data-vi="🚜 Trợ cấp thiết bị nông nghiệp">🚜 농기계·시설 구입 보조</p>
+                        </div>
+                        <button onclick="scrollToVideos(); filterVideos('policy')" class="w-full px-3 py-2 bg-yellow-500 text-white rounded text-xs hover:bg-yellow-600">
+                            <i class="fas fa-hand-holding-usd mr-1"></i><span data-ko="지원금 정책 영상" data-en="Watch Subsidy Policy Videos" data-zh="观看补助政策视频" data-ja="支援金政策動画" data-mn="Дэмжлэгийн бодлогын видео" data-ru="Смотреть видео о субсидиях" data-vi="Xem video chính sách trợ cấp">지원금 정책 영상</span>
+                        </button>
+                        <button onclick="document.getElementById('riskRegions').scrollIntoView({behavior:'smooth'})" class="w-full px-3 py-2 bg-yellow-400 text-white rounded text-xs hover:bg-yellow-500">
+                            <i class="fas fa-exclamation-triangle mr-1"></i><span data-ko="위기 지역 보기" data-en="View Crisis Regions" data-zh="查看危机地区" data-ja="危機地域を見る" data-mn="Хямрал үзүүлэлт бүс үзэх" data-ru="Посмотреть кризисные регионы" data-vi="Xem khu vực khủng hoảng">위기 지역 보기</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -227,13 +267,29 @@ app.get('/', (c) => {
         </section>
 
         <!-- 지원책 관련 영상 -->
-        <section class="compact-section py-3 bg-white">
+        <section id="video-section" class="compact-section py-3 bg-gradient-to-br from-blue-50 to-purple-50">
             <div class="compact-container">
                 <div class="text-center mb-3">
                     <h3 class="text-base font-bold mb-1 text-green-800">
                         <i class="fas fa-play-circle mr-1"></i><span data-ko="지원책 관련 영상" data-en="Support Policy Videos" data-zh="支持政策相关视频" data-ja="支援策関連動画" data-mn="Дэмжлэгийн бодлоготой холбоотой видео" data-ru="Видео о политике поддержки" data-vi="Video chính sách hỗ trợ">지원책 관련 영상</span>
                     </h3>
-                    <p class="text-xs text-gray-700" data-ko="귀농·귀촌 지원 정책과 성공 사례를 영상으로 확인하세요" data-en="Check support policies and success stories through videos" data-zh="通过视频了解支持政策和成功案例" data-ja="支援政策と成功事例を動画で確認" data-mn="Дэмжлэгийн бодлого болон амжилтын түүхийг видеогоор үзнэ үү" data-ru="Ознакомьтесь с политикой поддержки и историями успеха через видео" data-vi="Xem chính sách hỗ trợ và câu chuyện thành công qua video">귀농·귀촌 지원 정책과 성공 사례를 영상으로 확인하세요</p>
+                    <p class="text-xs text-gray-700 mb-2" data-ko="귀농·귀촌 지원 정책과 성공 사례를 영상으로 확인하세요" data-en="Check support policies and success stories through videos" data-zh="通过视频了解支持政策和成功案例" data-ja="支援政策と成功事例を動画で確認" data-mn="Дэмжлэгийн бодлого болон амжилтын түүхийг видеогоор үзнэ үү" data-ru="Ознакомьтесь с политикой поддержки и историями успеха через видео" data-vi="Xem chính sách hỗ trợ và câu chuyện thành công qua video">귀농·귀촌 지원 정책과 성공 사례를 영상으로 확인하세요</p>
+                    
+                    <!-- 영상 필터 버튼 -->
+                    <div class="flex justify-center gap-1 mb-3 flex-wrap">
+                        <button onclick="filterVideos('all')" id="filter-all" class="px-3 py-1 bg-green-600 text-white rounded-full text-xs font-semibold">
+                            <i class="fas fa-th mr-1"></i><span data-ko="전체" data-en="All" data-zh="全部" data-ja="全て" data-mn="Бүгд" data-ru="Все" data-vi="Tất cả">전체</span>
+                        </button>
+                        <button onclick="filterVideos('policy')" id="filter-policy" class="px-3 py-1 bg-white text-gray-700 rounded-full text-xs">
+                            <i class="fas fa-landmark mr-1"></i><span data-ko="정책" data-en="Policy" data-zh="政策" data-ja="政策" data-mn="Бодлого" data-ru="Политика" data-vi="Chính sách">정책</span>
+                        </button>
+                        <button onclick="filterVideos('education')" id="filter-education" class="px-3 py-1 bg-white text-gray-700 rounded-full text-xs">
+                            <i class="fas fa-book mr-1"></i><span data-ko="교육" data-en="Education" data-zh="教育" data-ja="教育" data-mn="Боловсрол" data-ru="Обучение" data-vi="Giáo dục">교육</span>
+                        </button>
+                        <button onclick="filterVideos('success')" id="filter-success" class="px-3 py-1 bg-white text-gray-700 rounded-full text-xs">
+                            <i class="fas fa-trophy mr-1"></i><span data-ko="성공사례" data-en="Success" data-zh="成功案例" data-ja="成功事例" data-mn="Амжилт" data-ru="Успех" data-vi="Thành công">성공사례</span>
+                        </button>
+                    </div>
                 </div>
                 <div id="videoList" class="grid grid-cols-2 gap-2"></div>
             </div>
@@ -370,7 +426,17 @@ app.get('/', (c) => {
                 const container = document.getElementById('videoList');
                 const t = translations[currentLang];
                 
-                container.innerHTML = youtubeVideos.slice(0, 10).map(video => {
+                // 필터링된 영상 리스트
+                const filteredVideos = currentVideoFilter === 'all' 
+                    ? youtubeVideos 
+                    : youtubeVideos.filter(v => v.category === currentVideoFilter);
+                
+                if (filteredVideos.length === 0) {
+                    container.innerHTML = '<div class="col-span-2 text-center py-8 text-gray-500 text-sm"><i class="fas fa-video-slash text-3xl mb-2"></i><p data-ko="해당 카테고리의 영상이 없습니다" data-en="No videos in this category" data-zh="该类别中没有视频" data-ja="このカテゴリの動画はありません" data-mn="Энэ ангилалд видео байхгүй" data-ru="Нет видео в этой категории" data-vi="Không có video trong danh mục này">해당 카테고리의 영상이 없습니다</p></div>';
+                    return;
+                }
+                
+                container.innerHTML = filteredVideos.map(video => {
                     const thumbnailUrl = video.isPlaylist 
                         ? \`https://i.ytimg.com/vi/\${video.id.replace('PLaiEbMM65nCOn0GK3pgRDMQjELhdpbAur', '4v33UFxxTxQ')}/hqdefault.jpg\`
                         : \`https://i.ytimg.com/vi/\${video.id}/hqdefault.jpg\`;
@@ -492,10 +558,34 @@ app.get('/', (c) => {
             }
             
             function scrollToVideos() {
-                const videoSection = document.querySelector('.compact-section:has(#videoList)');
+                const videoSection = document.getElementById('video-section');
                 if (videoSection) {
-                    videoSection.scrollIntoView({ behavior: 'smooth' });
+                    videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // 스크롤 후 살짝 위로 이동 (헤더 가림 방지)
+                    setTimeout(() => {
+                        window.scrollBy(0, -60);
+                    }, 300);
                 }
+            }
+            
+            let currentVideoFilter = 'all';
+            
+            function filterVideos(category) {
+                currentVideoFilter = category;
+                
+                // 필터 버튼 스타일 업데이트
+                ['all', 'policy', 'education', 'success'].forEach(cat => {
+                    const btn = document.getElementById('filter-' + cat);
+                    if (btn) {
+                        if (cat === category) {
+                            btn.className = 'px-3 py-1 bg-green-600 text-white rounded-full text-xs font-semibold';
+                        } else {
+                            btn.className = 'px-3 py-1 bg-white text-gray-700 rounded-full text-xs';
+                        }
+                    }
+                });
+                
+                updateVideoList();
             }
             
             function toggleMenu(menuId) {
