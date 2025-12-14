@@ -197,6 +197,19 @@ app.get('/', (c) => {
             </div>
         </section>
 
+        <!-- 지원책 관련 영상 -->
+        <section class="compact-section py-3 bg-white">
+            <div class="compact-container">
+                <div class="text-center mb-3">
+                    <h3 class="text-base font-bold mb-1 text-green-800">
+                        <i class="fas fa-play-circle mr-1"></i><span data-ko="지원책 관련 영상" data-en="Support Policy Videos" data-zh="支持政策相关视频" data-ja="支援策関連動画" data-mn="Дэмжлэгийн бодлоготой холбоотой видео" data-ru="Видео о политике поддержки" data-vi="Video chính sách hỗ trợ">지원책 관련 영상</span>
+                    </h3>
+                    <p class="text-xs text-gray-700" data-ko="귀농·귀촌 지원 정책과 성공 사례를 영상으로 확인하세요" data-en="Check support policies and success stories through videos" data-zh="通过视频了解支持政策和成功案例" data-ja="支援政策と成功事例を動画で確認" data-mn="Дэмжлэгийн бодлого болон амжилтын түүхийг видеогоор үзнэ үү" data-ru="Ознакомьтесь с политикой поддержки и историями успеха через видео" data-vi="Xem chính sách hỗ trợ và câu chuyện thành công qua video">귀농·귀촌 지원 정책과 성공 사례를 영상으로 확인하세요</p>
+                </div>
+                <div id="videoList" class="grid grid-cols-2 gap-2"></div>
+            </div>
+        </section>
+
         <!-- 컴팩트 푸터 -->
         <footer class="bg-gray-800 text-white py-4">
             <div class="compact-container">
@@ -222,15 +235,70 @@ app.get('/', (c) => {
             let smartFarmsData = [];
             let currentLang = 'ko';
             
+            // 유튜브 영상 데이터
+            const youtubeVideos = [
+                {
+                    id: '4v33UFxxTxQ',
+                    title: { ko: '청년 농업 정착 지원', en: 'Youth Farm Support', zh: '青年农业定居支持', ja: '青年農業定住支援', mn: 'Залуучуудын хөдөө аж ахуйн дэмжлэг', ru: 'Поддержка молодых фермеров', vi: 'Hỗ trợ nông nghiệp thanh niên' },
+                    category: 'policy'
+                },
+                {
+                    id: 'TGP4kiBG4xY',
+                    title: { ko: '월세 8만원 청년 농촌 정착', en: 'Rural Settlement Program', zh: '月租8万韩元青年农村定居', ja: '月8万ウォン青年農村定住', mn: '8 мянган вон сарын төлбөртэй залуучуудын хөдөө нутагт суурьшсан', ru: 'Программа поселения молодежи', vi: 'Định cư nông thôn thanh niên 80k won' },
+                    category: 'policy'
+                },
+                {
+                    id: 'I0BFaP_iiRM',
+                    title: { ko: '지역활력타운 지원정책', en: 'Regional Vitality Town', zh: '地区活力小镇支持', ja: '地域活力タウン支援', mn: 'Бүс нутгийн амьдрал сэдвийн дэмжлэг', ru: 'Поддержка региональных городов', vi: 'Chính sách hỗ trợ thị trấn sống động' },
+                    category: 'policy'
+                },
+                {
+                    id: 'DXOyA2_o11o',
+                    title: { ko: '인구감소 대응 지역경제 활성화', en: 'Economic Revitalization', zh: '应对人口减少的地区经济振兴', ja: '人口減少対応地域経済活性化', mn: 'Хүн амын тоо буурахад хариу үйлдэл', ru: 'Экономическое возрождение регионов', vi: 'Phục hồi kinh tế khu vực' },
+                    category: 'policy'
+                },
+                {
+                    id: 'zOhm8T_L4rA',
+                    title: { ko: '스마트농업 농촌 활성화', en: 'Smart Agriculture Activation', zh: '智慧农业农村振兴', ja: 'スマート農業農村活性化', mn: 'Ухаалаг хөдөө аж ахуйн сэргээлт', ru: 'Активизация умного сельского хозяйства', vi: 'Kích hoạt nông nghiệp thông minh' },
+                    category: 'education'
+                },
+                {
+                    id: 'PLaiEbMM65nCOn0GK3pgRDMQjELhdpbAur',
+                    title: { ko: '청년농업인 지원사업 총정리', en: 'Youth Farmer Support Overview', zh: '青年农业人支持事业总结', ja: '青年農業者支援事業総まとめ', mn: 'Залуу фермерүүдийн дэмжлэгийн нийт', ru: 'Обзор поддержки молодых фермеров', vi: 'Tổng hợp hỗ trợ nông dân trẻ' },
+                    category: 'education',
+                    isPlaylist: true
+                },
+                {
+                    id: 'eJZmF5qKLlI',
+                    title: { ko: '귀농귀촌 지원 정책 가이드', en: 'Rural Return Support Guide', zh: '返乡务农支持政策指南', ja: '帰農帰村支援政策ガイド', mn: 'Хөдөө рүү буцах дэмжлэгийн гарын авлага', ru: 'Руководство по поддержке возвращения в село', vi: 'Hướng dẫn chính sách hỗ trợ quay về nông thôn' },
+                    category: 'policy'
+                },
+                {
+                    id: 'j8K7vX9pZGY',
+                    title: { ko: '귀농 성공 사례 인터뷰', en: 'Success Story Interview', zh: '返乡成功案例采访', ja: '帰農成功事例インタビュー', mn: 'Амжилтын түүх ярилцлага', ru: 'Интервью об успехе', vi: 'Phỏng vấn câu chuyện thành công' },
+                    category: 'success'
+                },
+                {
+                    id: 'm3KlPW-Hnvs',
+                    title: { ko: '스마트팜 창업 과정', en: 'Smart Farm Startup Process', zh: '智慧农场创业过程', ja: 'スマートファーム創業過程', mn: 'Ухаалаг ферм бизнес эхлүүлэх', ru: 'Процесс создания умной фермы', vi: 'Quy trình khởi nghiệp trang trại thông minh' },
+                    category: 'education'
+                },
+                {
+                    id: 'xW8vL7M4pNk',
+                    title: { ko: '귀촌 실패 피하는 법', en: 'How to Avoid Failure', zh: '如何避免返乡失败', ja: '帰村失敗を避ける方法', mn: 'Алдаанаас хэрхэн зайлсхийх', ru: 'Как избежать неудачи', vi: 'Cách tránh thất bại' },
+                    category: 'education'
+                }
+            ];
+            
             // 언어 전환
             const translations = {
-                ko: { risk: '위험', detail: '상세 보기', elderly: '고령화', empty: '빈집률', support: '지원', billion: '억원', emptyHouse: '빈집', smartFarm: '스마트팜', house: '주택', tbd: '미정', sale: '매매', complex: '복합', education: '교육형' },
-                en: { risk: 'Risk', detail: 'Details', elderly: 'Elderly', empty: 'Empty', support: 'Support', billion: 'B KRW', emptyHouse: 'Empty House', smartFarm: 'Smart Farm', house: 'House', tbd: 'TBD', sale: 'Sale', complex: 'Complex', education: 'Education' },
-                zh: { risk: '风险', detail: '详情', elderly: '老龄化', empty: '空房率', support: '支持', billion: '亿韩元', emptyHouse: '空房', smartFarm: '智慧农场', house: '住宅', tbd: '待定', sale: '买卖', complex: '综合', education: '教育型' },
-                ja: { risk: 'リスク', detail: '詳細', elderly: '高齢化', empty: '空き家率', support: '支援', billion: '億ウォン', emptyHouse: '空き家', smartFarm: 'スマートファーム', house: '住宅', tbd: '未定', sale: '売買', complex: '複合', education: '教育型' },
-                mn: { risk: 'Эрсдэл', detail: 'Дэлгэрэнгүй', elderly: 'Өндөр нас', empty: 'Хоосон байшин', support: 'Дэмжлэг', billion: 'тэрбум вон', emptyHouse: 'Хоосон байшин', smartFarm: 'Ухаалаг ферм', house: 'Орон сууц', tbd: 'Тодорхойгүй', sale: 'Худалдаа', complex: 'Цогц', education: 'Боловсролын' },
-                ru: { risk: 'Риск', detail: 'Подробнее', elderly: 'Старение', empty: 'Пустые дома', support: 'Поддержка', billion: 'млрд вон', emptyHouse: 'Пустой дом', smartFarm: 'Умная ферма', house: 'Дом', tbd: 'Уточняется', sale: 'Продажа', complex: 'Комплекс', education: 'Образование' },
-                vi: { risk: 'Rủi ro', detail: 'Chi tiết', elderly: 'Già hóa', empty: 'Tỷ lệ nhà trống', support: 'Hỗ trợ', billion: 'tỷ won', emptyHouse: 'Nhà trống', smartFarm: 'Trang trại thông minh', house: 'Nhà ở', tbd: 'Chưa xác định', sale: 'Bán', complex: 'Phức hợp', education: 'Giáo dục' }
+                ko: { risk: '위험', detail: '상세 보기', elderly: '고령화', empty: '빈집률', support: '지원', billion: '억원', emptyHouse: '빈집', smartFarm: '스마트팜', house: '주택', tbd: '미정', sale: '매매', complex: '복합', education: '교육형', watchVideo: '영상 보기' },
+                en: { risk: 'Risk', detail: 'Details', elderly: 'Elderly', empty: 'Empty', support: 'Support', billion: 'B KRW', emptyHouse: 'Empty House', smartFarm: 'Smart Farm', house: 'House', tbd: 'TBD', sale: 'Sale', complex: 'Complex', education: 'Education', watchVideo: 'Watch' },
+                zh: { risk: '风险', detail: '详情', elderly: '老龄化', empty: '空房率', support: '支持', billion: '亿韩元', emptyHouse: '空房', smartFarm: '智慧农场', house: '住宅', tbd: '待定', sale: '买卖', complex: '综合', education: '教育型', watchVideo: '观看视频' },
+                ja: { risk: 'リスク', detail: '詳細', elderly: '高齢化', empty: '空き家率', support: '支援', billion: '億ウォン', emptyHouse: '空き家', smartFarm: 'スマートファーム', house: '住宅', tbd: '未定', sale: '売買', complex: '複合', education: '教育型', watchVideo: '動画を見る' },
+                mn: { risk: 'Эрсдэл', detail: 'Дэлгэрэнгүй', elderly: 'Өндөр нас', empty: 'Хоосон байшин', support: 'Дэмжлэг', billion: 'тэрбум вон', emptyHouse: 'Хоосон байшин', smartFarm: 'Ухаалаг ферм', house: 'Орон сууц', tbd: 'Тодорхойгүй', sale: 'Худалдаа', complex: 'Цогц', education: 'Боловсролын', watchVideo: 'Видео үзэх' },
+                ru: { risk: 'Риск', detail: 'Подробнее', elderly: 'Старение', empty: 'Пустые дома', support: 'Поддержка', billion: 'млрд вон', emptyHouse: 'Пустой дом', smartFarm: 'Умная ферма', house: 'Дом', tbd: 'Уточняется', sale: 'Продажа', complex: 'Комплекс', education: 'Образование', watchVideo: 'Смотреть' },
+                vi: { risk: 'Rủi ro', detail: 'Chi tiết', elderly: 'Già hóa', empty: 'Tỷ lệ nhà trống', support: 'Hỗ trợ', billion: 'tỷ won', emptyHouse: 'Nhà trống', smartFarm: 'Trang trại thông minh', house: 'Nhà ở', tbd: 'Chưa xác định', sale: 'Bán', complex: 'Phức hợp', education: 'Giáo dục', watchVideo: 'Xem video' }
             };
 
             function switchLanguage(lang) {
@@ -245,6 +313,7 @@ app.get('/', (c) => {
                 // 동적 콘텐츠 재렌더링
                 updateRiskRegions();
                 updateDataList('all');
+                updateVideoList();
             }
             
             async function loadData() {
@@ -262,9 +331,46 @@ app.get('/', (c) => {
                     updateRegionFilter();
                     updateRiskRegions();
                     updateDataList('all');
+                    updateVideoList();
                 } catch (error) {
                     console.error('Failed to load data:', error);
                 }
+            }
+            
+            function updateVideoList() {
+                const container = document.getElementById('videoList');
+                const t = translations[currentLang];
+                
+                container.innerHTML = youtubeVideos.slice(0, 10).map(video => {
+                    const thumbnailUrl = video.isPlaylist 
+                        ? \`https://i.ytimg.com/vi/\${video.id.replace('PLaiEbMM65nCOn0GK3pgRDMQjELhdpbAur', '4v33UFxxTxQ')}/hqdefault.jpg\`
+                        : \`https://i.ytimg.com/vi/\${video.id}/hqdefault.jpg\`;
+                    const videoUrl = video.isPlaylist
+                        ? \`https://www.youtube.com/playlist?list=\${video.id}\`
+                        : \`https://www.youtube.com/watch?v=\${video.id}\`;
+                    
+                    return \`
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                            <a href="\${videoUrl}" target="_blank" class="block">
+                                <div class="relative">
+                                    <img src="\${thumbnailUrl}" alt="\${video.title[currentLang]}" class="w-full h-24 object-cover">
+                                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                                        <i class="fas fa-play-circle text-white text-3xl"></i>
+                                    </div>
+                                    <span class="absolute top-1 right-1 px-1.5 py-0.5 bg-red-600 text-white text-xs rounded">
+                                        <i class="fab fa-youtube mr-0.5"></i>YouTube
+                                    </span>
+                                </div>
+                                <div class="p-2">
+                                    <h4 class="text-xs font-semibold line-clamp-2 mb-1">\${video.title[currentLang]}</h4>
+                                    <button class="w-full px-2 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600">
+                                        <i class="fas fa-play mr-1"></i>\${t.watchVideo}
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+                    \`;
+                }).join('');
             }
             
             function updateRegionFilter() {
