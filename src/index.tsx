@@ -127,26 +127,55 @@ app.get('/', (c) => {
             <div class="compact-container">
                 <h3 class="text-base font-bold text-center mb-3" data-ko="무엇을 도와드릴까요?" data-en="How can we help?" data-zh="我们能为您做什么？" data-ja="何をお手伝いできますか？" data-mn="Бид танд юугаар тусалж чадах вэ?" data-ru="Чем мы можем помочь?" data-vi="Chúng tôi có thể giúp gì cho bạn?">무엇을 도와드릴까요?</h3>
                 <div class="grid grid-cols-2 gap-2">
-                    <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
+                    <div onclick="toggleMenu('emptyHouse')" class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition cursor-pointer">
                         <i class="fas fa-home text-2xl text-blue-500 mb-1"></i>
                         <h4 class="text-xs font-semibold mb-1" data-ko="빈집 찾기" data-en="Empty Houses" data-zh="寻找空房" data-ja="空き家を探す" data-mn="Хоосон байшин хайх" data-ru="Найти пустой дом" data-vi="Tìm nhà trống">빈집 찾기</h4>
                         <p class="text-xs text-gray-600" data-ko="저렴한 주거 공간" data-en="Affordable Housing" data-zh="实惠的住房" data-ja="手頃な住宅" data-mn="Боломжийн орон сууц" data-ru="Доступное жилье" data-vi="Nhà ở giá phải chăng">저렴한 주거 공간</p>
                     </div>
-                    <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
+                    <div onclick="toggleMenu('smartFarm')" class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition cursor-pointer">
                         <i class="fas fa-tractor text-2xl text-green-500 mb-1"></i>
                         <h4 class="text-xs font-semibold mb-1" data-ko="스마트팜" data-en="Smart Farm" data-zh="智慧农场" data-ja="スマートファーム" data-mn="Ухаалаг ферм" data-ru="Умная ферма" data-vi="Trang trại thông minh">스마트팜</h4>
                         <p class="text-xs text-gray-600" data-ko="첨단 농업 기술" data-en="Advanced Tech" data-zh="尖端农业技术" data-ja="先端農業技術" data-mn="Дэвшилтэт хөдөө аж ахуйн технологи" data-ru="Передовые агротехнологии" data-vi="Công nghệ nông nghiệp tiên tiến">첨단 농업 기술</p>
                     </div>
-                    <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
+                    <div onclick="toggleMenu('education')" class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition cursor-pointer">
                         <i class="fas fa-graduation-cap text-2xl text-purple-500 mb-1"></i>
                         <h4 class="text-xs font-semibold mb-1" data-ko="교육/체험" data-en="Education" data-zh="教育/体验" data-ja="教育/体験" data-mn="Боловсрол/Туршлага" data-ru="Обучение/Опыт" data-vi="Giáo dục/Trải nghiệm">교육/체험</h4>
                         <p class="text-xs text-gray-600" data-ko="농업 기술 교육" data-en="Farming Education" data-zh="农业技术教育" data-ja="農業技術教育" data-mn="Хөдөө аж ахуйн техникийн боловсрол" data-ru="Обучение агротехнологиям" data-vi="Giáo dục kỹ thuật nông nghiệp">농업 기술 교육</p>
                     </div>
-                    <div class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition">
+                    <div onclick="toggleMenu('support')" class="text-center p-3 rounded-lg border border-gray-200 hover:border-green-500 transition cursor-pointer">
                         <i class="fas fa-hand-holding-usd text-2xl text-yellow-500 mb-1"></i>
                         <h4 class="text-xs font-semibold mb-1" data-ko="지원금 안내" data-en="Support Fund" data-zh="补助金指南" data-ja="支援金案内" data-mn="Дэмжлэгийн сангийн мэдээлэл" data-ru="Информация о субсидиях" data-vi="Hướng dẫn trợ cấp">지원금 안내</h4>
                         <p class="text-xs text-gray-600" data-ko="정착 지원 패키지" data-en="Settlement Package" data-zh="定居支持套餐" data-ja="定住支援パッケージ" data-mn="Суурьшлын дэмжлэгийн багц" data-ru="Пакет поддержки поселения" data-vi="Gói hỗ trợ định cư">정착 지원 패키지</p>
                     </div>
+                </div>
+                
+                <!-- 하위 메뉴 (초기에는 숨김) -->
+                <div id="menu-emptyHouse" class="hidden mt-3 bg-blue-50 rounded-lg p-3">
+                    <h5 class="text-sm font-bold mb-2 text-blue-800" data-ko="빈집 관련 영상" data-en="Empty House Videos" data-zh="空房相关视频" data-ja="空き家関連動画" data-mn="Хоосон байшингийн видео" data-ru="Видео о пустых домах" data-vi="Video nhà trống">빈집 관련 영상</h5>
+                    <button onclick="scrollToVideos()" class="w-full px-3 py-2 bg-blue-500 text-white rounded text-xs">
+                        <i class="fas fa-play-circle mr-1"></i><span data-ko="지원책 영상 보기" data-en="Watch Support Videos" data-zh="观看支持视频" data-ja="支援動画を見る" data-mn="Дэмжлэгийн видео үзэх" data-ru="Смотреть видео поддержки" data-vi="Xem video hỗ trợ">지원책 영상 보기</span>
+                    </button>
+                </div>
+                
+                <div id="menu-smartFarm" class="hidden mt-3 bg-green-50 rounded-lg p-3">
+                    <h5 class="text-sm font-bold mb-2 text-green-800" data-ko="스마트팜 정보" data-en="Smart Farm Info" data-zh="智慧农场信息" data-ja="スマートファーム情報" data-mn="Ухаалаг фермийн мэдээлэл" data-ru="Информация об умных фермах" data-vi="Thông tin trang trại thông minh">스마트팜 정보</h5>
+                    <button onclick="scrollToMap()" class="w-full px-3 py-2 bg-green-500 text-white rounded text-xs">
+                        <i class="fas fa-map-marked-alt mr-1"></i><span data-ko="지도에서 보기" data-en="View on Map" data-zh="在地图上查看" data-ja="地図で見る" data-mn="Газрын зураг дээр үзэх" data-ru="Посмотреть на карте" data-vi="Xem trên bản đồ">지도에서 보기</span>
+                    </button>
+                </div>
+                
+                <div id="menu-education" class="hidden mt-3 bg-purple-50 rounded-lg p-3">
+                    <h5 class="text-sm font-bold mb-2 text-purple-800" data-ko="교육 프로그램" data-en="Education Programs" data-zh="教育项目" data-ja="教育プログラム" data-mn="Боловсролын хөтөлбөр" data-ru="Образовательные программы" data-vi="Chương trình giáo dục">교육 프로그램</h5>
+                    <button onclick="scrollToVideos()" class="w-full px-3 py-2 bg-purple-500 text-white rounded text-xs">
+                        <i class="fas fa-graduation-cap mr-1"></i><span data-ko="교육 영상 보기" data-en="Watch Education Videos" data-zh="观看教育视频" data-ja="教育動画を見る" data-mn="Боловсролын видео үзэх" data-ru="Смотреть образовательные видео" data-vi="Xem video giáo dục">교육 영상 보기</span>
+                    </button>
+                </div>
+                
+                <div id="menu-support" class="hidden mt-3 bg-yellow-50 rounded-lg p-3">
+                    <h5 class="text-sm font-bold mb-2 text-yellow-800" data-ko="지원금 정보" data-en="Support Fund Info" data-zh="补助金信息" data-ja="支援金情報" data-mn="Дэмжлэгийн сангийн мэдээлэл" data-ru="Информация о субсидиях" data-vi="Thông tin trợ cấp">지원금 정보</h5>
+                    <button onclick="scrollToVideos()" class="w-full px-3 py-2 bg-yellow-500 text-white rounded text-xs">
+                        <i class="fas fa-hand-holding-usd mr-1"></i><span data-ko="지원 정책 영상" data-en="Support Policy Videos" data-zh="支持政策视频" data-ja="支援政策動画" data-mn="Дэмжлэгийн бодлогын видео" data-ru="Видео о политике поддержки" data-vi="Video chính sách hỗ trợ">지원 정책 영상</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -460,6 +489,30 @@ app.get('/', (c) => {
             
             function scrollToMap() {
                 document.getElementById('map-section').scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function scrollToVideos() {
+                const videoSection = document.querySelector('.compact-section:has(#videoList)');
+                if (videoSection) {
+                    videoSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            
+            function toggleMenu(menuId) {
+                // 모든 메뉴 닫기
+                const allMenus = ['emptyHouse', 'smartFarm', 'education', 'support'];
+                allMenus.forEach(id => {
+                    const menu = document.getElementById('menu-' + id);
+                    if (menu && id !== menuId) {
+                        menu.classList.add('hidden');
+                    }
+                });
+                
+                // 선택한 메뉴 토글
+                const targetMenu = document.getElementById('menu-' + menuId);
+                if (targetMenu) {
+                    targetMenu.classList.toggle('hidden');
+                }
             }
             
             document.getElementById('showEmptyHouses').addEventListener('click', () => updateDataList('houses'));
